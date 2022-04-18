@@ -2,7 +2,7 @@
   max-width: 1120px;
   margin: 0 auto;
   padding: 0 2rem;
-  height: cal(100vh -5rem);
+  height: calc(100vh - 5rem);
 
   display: flex;
   align-items: center;
@@ -13,7 +13,7 @@
   max-width: 600px;
 
   > span {
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
     font-weight: bold;
   }
 
@@ -24,7 +24,7 @@
     margin-top: 2.5rem;
 
     span {
-      color: var(--cyan-300)
+      color: var(--cyan-300);
     }
   }
 
