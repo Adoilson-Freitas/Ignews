@@ -1,0 +1,21 @@
+{
+  "id": "ef271efa-46db-4e30-bd0d-1c53d9efe9c3",
+  "uid": "temporibus-et-dolor",
+  "type": "postsId",
+  "data": {
+    "title": [
+      {
+        "type": "heading2",
+        "text": "Embrace clicks-and-mortar channels",
+        "spans": []
+      }
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Anim ex et esse commodo occaecat occaecat excepteur voluptate. Magna est occaecat consequat duis enim amet Lorem minim anim eu veniam. In ut exercitation fugiat adipisicing consectetur amet commodo elit ex excepteur amet ipsum esse do.",
+        "spans": []
+      }
+    ]
+  }
+}
