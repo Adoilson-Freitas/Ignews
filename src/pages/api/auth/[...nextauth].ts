@@ -1,8 +1,10 @@
-import { query as q } from "faunadb";
-import NextAuth from "next-auth";
+import { query as q } from 'faunadb'
+
+import NextAuth from 'next-auth'
+
 import GithubProvider from 'next-auth/providers/github'
 
-import { fauna } from "../../../services/fauna";
+import { fauna } from '../../../services/fauna'
 
 export default NextAuth({
   providers: [
@@ -14,9 +16,8 @@ export default NextAuth({
           scope: 'read:user,user:email'
         }
       }
-    }),
+    })
   ],
-
   secret: process.env.JWT_SIGNING_PRIVATE_KEY,
   session: {
     strategy: 'jwt'
