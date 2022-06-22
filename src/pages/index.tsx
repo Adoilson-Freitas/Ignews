@@ -8,7 +8,7 @@ import SubscribeButton from "../components/SubscribeButton";
 
 import { stripe } from "../services/stripe";
 
-import styles from "./home.module.scss";
+import styles from "../styles/home.module.scss";
 import { useSession } from "next-auth/react";
 
 interface HomeProps {
