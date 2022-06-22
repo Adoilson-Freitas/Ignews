@@ -11,7 +11,7 @@ import { RichText } from "prismic-dom";
 
 import { getPrismicClient } from "../../../services/prismic";
 
-import styles from "../post.module.scss";
+import styles from "../../../styles/pages/post.module.scss";
 
 interface PostPreviewProps {
   post: {
