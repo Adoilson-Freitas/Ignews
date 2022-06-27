@@ -1,37 +1,33 @@
-import { useEffect } from "react";
-
 import { GetStaticPaths, GetStaticProps } from "next";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-
-import { useSession } from "next-auth/react";
-
 import { RichText } from "prismic-dom";
+import { useEffect } from "react";
 
 import { getPrismicClient } from "../../../services/prismic";
 
 import styles from "../../../styles/pages/post.module.scss";
 
+type PostPreview = {
+  slug: string;
+  title: string;
+  content: string;
+  updatedAt: string;
+};
+
 interface PostPreviewProps {
-  post: {
-    slug: string;
-    title: string;
-    content: string;
-    updatedAt: string;
-  };
+  post: PostPreview;
 }
 
 export default function PostPreview({ post }: PostPreviewProps) {
   const { data: session } = useSession();
-
   const router = useRouter();
 
   useEffect(() => {
-    if (session?.activeSubscription) {
+    if (session.activeSubscription) {
       router.push(`/posts/${post.slug}`);
-
-      return;
     }
   }, [session]);
 
@@ -45,6 +41,7 @@ export default function PostPreview({ post }: PostPreviewProps) {
         <article className={styles.post}>
           <h1>{post.title}</h1>
           <time>{post.updatedAt}</time>
+
           <div
             className={`${styles.postContent} ${styles.previewContent}`}
             dangerouslySetInnerHTML={{ __html: post.content }}
@@ -79,7 +76,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const post = {
     slug,
     title: RichText.asText(response.data.title),
-    content: RichText.asHtml(response.data.content.slice(0, 3)),
+    content: RichText.asHtml(response.data.content.splice(0, 3)),
     updatedAt: new Date(response.last_publication_date).toLocaleDateString(
       "pt-BR",
       {
@@ -94,6 +91,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       post,
     },
-    revalidate: 60 * 30, // 30 minutes
+    revalidate: 60 * 30, // 30 minutos
   };
 };

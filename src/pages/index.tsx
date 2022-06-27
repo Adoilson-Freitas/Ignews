@@ -1,42 +1,19 @@
-import { useEffect } from "react";
-
 import { GetStaticProps } from "next";
 import Head from "next/head";
-import { useRouter } from "next/router";
 
-import SubscribeButton from "../components/SubscribeButton";
-
+import { SubscribeButton } from "../components/SubscribeButton";
 import { stripe } from "../services/stripe";
 
 import styles from "../styles/pages/home.module.scss";
-import { useSession } from "next-auth/react";
 
 interface HomeProps {
   product: {
-    amount: number;
+    priceId: string;
+    amount: string;
   };
 }
 
 export default function Home({ product }: HomeProps) {
-  const {
-    push,
-    query: { error },
-  } = useRouter();
-
-  const { data: session } = useSession();
-
-  useEffect(() => {
-    if (error) {
-      alert("Subscription successful! 🎉");
-    }
-  }, [error]);
-
-  useEffect(() => {
-    if (session?.activeSubscription) {
-      push("/posts");
-    }
-  }, [session?.activeSubscription]);
-
   return (
     <>
       <Head>
@@ -45,33 +22,30 @@ export default function Home({ product }: HomeProps) {
 
       <main className={styles.contentContainer}>
         <section className={styles.hero}>
-          <span>👋 Hey, welcome!</span>
+          <span>👏 Hey, welcome</span>
           <h1>
             News about the <span>React</span> world.
           </h1>
           <p>
-            Get acess to all publications <br />
+            Get access to all publications <br />
             <span>for {product.amount} month</span>
           </p>
-
           <SubscribeButton />
         </section>
 
-        <img src="/images/avatar.svg" alt="girl coding" />
+        <img src="/images/avatar.svg" alt="Girl coding" />
       </main>
     </>
   );
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const price = await stripe.prices.retrieve(
-    process.env.STRIPE_SUBSCRIPTION_PRICEID
-  );
-
+  const price = await stripe.prices.retrieve("price_1Idm8GCVoLylDIa6aQcjy58B");
   const product = {
+    priceId: price.id,
     amount: new Intl.NumberFormat("en-US", {
-      currency: "USD",
       style: "currency",
+      currency: "USD",
     }).format(price.unit_amount / 100),
   };
 
